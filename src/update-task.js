@@ -2,14 +2,14 @@ import { apiCall } from './utils/helpers';
 import { notify } from './utils/notifications';
 
 const vars = process.env;
-const { action, goTo, taskId, taskNotes, requestMethod, taskHours } = vars;
+const { action, goTo, taskId, taskNotes, requestMethod, taskHours, query } = vars;
 const stopRestart = vars.stopRestart || '';
 
 let url = `https://api.harvestapp.com/v2/time_entries/${taskId}/${stopRestart}`;
 
-if (action === 'note') {
+if (action === 'note' || action === 'note-current-timer') {
     const prevNote = taskNotes || '';
-    const newNote = process.argv[2].replace(/– /g, '\n– ')
+    const newNote = query || process.argv[2].replace(/– /g, '\n– ')
     const note = encodeURIComponent(`${prevNote}${newNote}`);
     url = `https://api.harvestapp.com/v2/time_entries/${taskId}?notes=${note}`;
 }
@@ -23,7 +23,7 @@ if (!goTo) {
 
     await apiCall(url, requestMethod)
         .then(response => {
-            if (action === 'note') {
+            if (action === 'note' || action === 'note-current-timer') {
                 notify(
                     'Harvest note updated!',
                     response.notes

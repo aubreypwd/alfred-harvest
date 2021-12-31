@@ -9,12 +9,13 @@ const userId = alfy.config.get('userId') || '';
 const url = `https://api.harvestapp.com/v2/time_entries?user_id=${userId}&from=${today}&to=${today}`;
 
 const action = process.argv[3] || ''; // toggle|note
-const actionPrefix = action === 'note' ? 'Add note: ' : '';
+const actionPrefix = (action === 'note' || action === 'note-current-timer') ? 'Add note: ' : '';
 
 await apiCall(url, 'GET')
     .then(response => {
         const items = response.time_entries
             .map(element => {
+
                 const notes = `${element.notes ? ' - ' + element.notes : ' '}`;
                 const variables = {
                     action: action,
@@ -25,7 +26,8 @@ await apiCall(url, 'GET')
                     taskClientName: element.client.name,
                     taskHours: element.hours,
                     stopRestart: `${element.is_running ? 'stop' : 'restart'}`,
-                    requestMethod: 'PATCH'
+                    requestMethod: 'PATCH',
+                    query: process.argv[2] || null
                 };
 
                 // setup main item
@@ -44,14 +46,14 @@ await apiCall(url, 'GET')
                 // make sure running timers are on top
                 if (element.is_running) item.uid = '0';
 
-                if (action === 'note') {
+                if (action === 'note' || action === 'note-current-timer') {
                     item.icon = {
                         path: `${element.is_running ? 'src/icons/note-active.png' : 'src/icons/note-inactive.png'}`
                     }
                 }
 
                 // use alt-key to delete task
-                if (action !== 'note') {
+                if (action !== 'note' && action !== 'note-current-timer') {
                     item.mods.alt = {
                         subtitle: 'Delete this task...',
                         variables: {
@@ -78,10 +80,6 @@ await apiCall(url, 'GET')
                 return item;
             });
 
-        const totalTimeToday = response.time_entries.reduce((acc, entry) => {
-            return acc + entry.hours;
-        }, 0);
-
         if (!response.time_entries.length) {
             items.push({
                 uid: 123456789,
@@ -96,6 +94,10 @@ await apiCall(url, 'GET')
             });
         }
 
+        const totalTimeToday = response.time_entries.reduce((acc, entry) => {
+            return acc + entry.hours;
+        }, 0);
+
         // total time today
         items.push({
             title: `Total: ${roundTime(totalTimeToday)}`,
@@ -103,7 +105,9 @@ await apiCall(url, 'GET')
             icon: { path: 'src/icons/total.png' }
         });
 
-        alfy.output(items);
+        alfy.output('note-current-timer' === action ? items.filter(function(item) {
+            return item.uid === '0';
+        }) : items);
     })
     .catch(error => {
         alfredError(error, `Failed to list today's timers.`);
