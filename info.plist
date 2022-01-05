@@ -418,7 +418,7 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>Andre Jilderda</string>
+	<string>Andre Jilderda &amp; Aubrey Portwood</string>
 	<key>description</key>
 	<string>Control your Harvest timers directly from Alfred</string>
 	<key>disabled</key>
@@ -1184,6 +1184,8 @@ fi</string>
 			<dict>
 				<key>argument</key>
 				<string></string>
+				<key>passthroughargument</key>
+				<false/>
 				<key>variables</key>
 				<dict>
 					<key>token</key>
@@ -1202,6 +1204,8 @@ fi</string>
 			<dict>
 				<key>argument</key>
 				<string></string>
+				<key>passthroughargument</key>
+				<false/>
 				<key>variables</key>
 				<dict>
 					<key>account_id</key>
@@ -1299,8 +1303,7 @@ fi</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>For more information head over to:
-https://github.com/andrejilderda/alfred-harvest-v2</string>
+	<string>For more information head over to: https://github.com/aubreypwd/alfred-workflow-harvest</string>
 	<key>uidata</key>
 	<dict>
 		<key>0113364C-D18F-4B1C-B082-9579BE03D03C</key>
@@ -1555,11 +1558,9 @@ https://github.com/andrejilderda/alfred-harvest-v2</string>
 			<integer>1195</integer>
 		</dict>
 	</dict>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
 	<string>1.1.5</string>
 	<key>webaddress</key>
-	<string>https://github.com/andrejilderda/alfred-harvest-v2</string>
+	<string>https://github.com/aubreypwd/alfred-workflow-harvest</string>
 </dict>
 </plist>
