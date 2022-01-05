@@ -1,3 +1,7 @@
+See [FORKINFO.md](FORKINFO.md) for information on how this fork differs from the below.
+
+---
+
 ## Control your [Harvest](https://www.getharvest.com/) timers directly from [Alfred](https://www.alfredapp.com/).
 
 - Start, stop and adjust timers
