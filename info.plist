@@ -1547,6 +1547,8 @@ fi</string>
 			<integer>1195</integer>
 		</dict>
 	</dict>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
 	<string>1.1.5+aubreypwd.1</string>
 	<key>webaddress</key>
