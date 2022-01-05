@@ -10,13 +10,13 @@ let url = `https://api.harvestapp.com/v2/time_entries/${taskId}/${stopRestart}`;
 if (action === "note") {
   const prevNote = taskNotes || "";
   const newNote = process.argv[2];
-  const bulletRegex = /^(\*|•|-|–)\s?/g;
+  const bulletRegex = /^(\*|\•|\-|\–)\s?/g;
   const match = newNote.match(bulletRegex);
 
   // Convert any bullets (dash and en-dashes to '– ' and asterisks and bullets to '• ')
   const bulletChar = !match
     ? ""
-    : "•"; // Always use a bullet character.
+    : "• "; // Always use a bullet character.
 
   const newNoteFormatted = process.argv[2].replace(bulletRegex, bulletChar);
 
