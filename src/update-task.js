@@ -16,9 +16,7 @@ if (action === "note") {
   // Convert any bullets (dash and en-dashes to '– ' and asterisks and bullets to '• ')
   const bulletChar = !match
     ? ""
-    : match[0].trim() === "*" || match[0].trim() === "•"
-    ? "• "
-    : "– ";
+    : "•"; // Always use a bullet character.
 
   const newNoteFormatted = process.argv[2].replace(bulletRegex, bulletChar);
 
