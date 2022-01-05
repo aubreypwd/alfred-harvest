@@ -12,3 +12,5 @@ X.X.X+aubreypwd.Y
 ```
 
 Where `Y` will be iterated in a numerical form. My releases will follow only that tags I add, not the upstream's.
+
+- Version will not be maintained in `package.json` for now, since they don't like build meta
